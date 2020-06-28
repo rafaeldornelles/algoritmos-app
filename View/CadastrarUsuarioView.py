@@ -22,3 +22,6 @@ class CadastrarUsuarioView:
 
     def mostrarMensagemErro(self):
         self.window.find_element('erro').Update(visible=True)
+
+    def close(self):
+        self.window.close()

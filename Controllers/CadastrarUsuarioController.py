@@ -16,6 +16,7 @@ class CadastrarUsuarioController:
                     view.mostrarMensagemErro()
                 else:
                     paciente = Paciente(0, values['nome'], values['bairro'], [])
+                    view.close()
                     CadastrarCasoController(paciente)
                     break
             elif event == None:

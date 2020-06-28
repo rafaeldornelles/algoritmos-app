@@ -24,3 +24,6 @@ class CadastrarLocaisVisitadosView:
     def atualizarLocais(self):
         self.window.find_element('locais').update(values=self.locais)
 
+    def close(self):
+        self.window.close()
+

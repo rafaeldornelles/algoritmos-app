@@ -17,14 +17,21 @@ class CadastrarCasoController:
                 print(values)
                 if values['fcontagio'] == "" or values['datasintomas'] == '':
                     view.mostrarErro()
-                else:
-                    #verificar se a pessoa marcou ao menos um sintoma
-                    sintomasMarcados = [sintoma for sintoma in sintomas if values[sintoma.descricao] == True]
-                    if len(sintomasMarcados) == 0:
-                        view.nenhumSintoma()
+                    continue
 
-                    else:
-                        caso = Caso(0, paciente, values['fcontagio'], datetime.strptime(values['datasintomas'], '%d/%m/%Y'), datetime.now(), None, sintomasMarcados)
-                        if values['datafimsintomas'] != '':
-                            caso.dataFimSintomas = datetime.strptime(values['datafimsintomas'], '%d/%m/%Y')
-                        CadastrarLocaisVisitadosController(caso)
+                #verificar se a pessoa marcou ao menos um sintoma
+                sintomasMarcados = [sintoma for sintoma in sintomas if values[sintoma.descricao] == True]
+                if len(sintomasMarcados) == 0:
+                    view.nenhumSintoma()
+                    continue
+
+                caso = Caso(0, paciente, values['fcontagio'], datetime.strptime(values['datasintomas'], '%d/%m/%Y'), datetime.now(), None, sintomasMarcados)
+                if values['datafimsintomas'] != '':
+                    caso.dataFimSintomas = datetime.strptime(values['datafimsintomas'], '%d/%m/%Y')
+
+                view.close()
+                CadastrarLocaisVisitadosController(caso)
+                break
+
+            elif event == None:
+                break

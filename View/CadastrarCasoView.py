@@ -31,3 +31,6 @@ class CadastrarCasoView:
 
     def nenhumSintoma(self):
         self.window.find_element('sintomaerror').update(visible=True)
+
+    def close(self):
+        self.window.close()

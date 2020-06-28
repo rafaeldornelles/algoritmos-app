@@ -13,7 +13,7 @@ class CadastrarLocaisVisitadosController:
         view = CadastrarLocaisVisitadosView(locais)
         while True:
             event, values = view.read()
-            if event == 'cadlocal':
+            if event == 'cadlocal': #evento de cadastrar local
                 cadastroView = LocalCadastroView()
                 e,v = cadastroView.read()
                 if e == 'cadastrar':
@@ -26,4 +26,6 @@ class CadastrarLocaisVisitadosController:
 
             elif event == 'cadfinal':
                 caso.paciente.locaisVisitados = values['locais']
+                view.close()
                 CadastrarCasoConfirmarController(caso)
+                break

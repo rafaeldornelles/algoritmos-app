@@ -7,7 +7,7 @@ class CadastrarCasoConfirmarView:
         self.locaisVisitadosLabel = sg.Text(', '.join([local.nome for local in caso.paciente.locaisVisitados]))
         self.dataInicioSintomasLabel = sg.Text(caso.dataInicioSintomas.strftime('%d/%m/%Y'))
         self.formaContagioLabel = sg.Text(caso.formaContagio)
-        self.sintomasLabel = sg.Text(','.join([sintoma.descricao for sintoma in caso.sintomas]))
+        self.sintomasLabel = sg.Text(', '.join([sintoma.descricao for sintoma in caso.sintomas]))
         self.dataFimSintomas = sg.Text(caso.dataFimSintomas.strftime('%d/%m/%Y')) if caso.dataFimSintomas != None else sg.Text('-')
 
         self.window = sg.Window('Covidometro Poa')
@@ -34,3 +34,6 @@ class CadastrarCasoConfirmarView:
 
     def sucessoPopup(self):
         sg.popup('Caso cadastrado com sucesso')
+
+    def close(self):
+        self.window.close()

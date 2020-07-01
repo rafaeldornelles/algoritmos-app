@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
 
+from Controllers.CasosBairroController import CasosBairroController
 from Controllers.CasosBairrosController import CasosBairrosController
 from Controllers.CasosLocaisController import CasosLocaisController
+from Controllers.CasosLocalController import CasosLocalController
 from Controllers.CasosPorDataController import CasosPorDataController
 from Services.BairroServices import BairroServices
 from Services.CasoServices import CasoServices
@@ -12,16 +14,16 @@ from View.CasosGeralView import CasosGeralView
 
 class CasosGeralController:
     def __init__(self):
-        self.casos = CasoServices().listar()
+        self.casoServices = CasoServices()
+        self.casos = self.casoServices.listar()
         infoCasos = self.getInfoCasos()
         bairros = BairroServices().listar()
         locais = LocalServices().listar()
-        self.casoServices = CasoServices()
 
         view = CasosGeralView(infoCasos, bairros, locais)
         while True:
             event, values = view.read()
-            view.esconderNenhumaData()
+            view.esconderErros()
             if event == 'verTodosBairros':
                 view.hide()
                 CasosBairrosController(bairros)
@@ -39,6 +41,22 @@ class CasosGeralController:
 
                 infoCasosData = self.getInfoDia(data)
                 CasosPorDataController(data, infoCasosData)
+
+            elif event == 'verBairro':
+                if values['bairro'] == '':
+                    view.nenhumBairro()
+                    continue
+                view.hide()
+                CasosBairroController(values['bairro'])
+
+            elif event == 'verLocal':
+                print(values)
+                if values['local'] == '':
+                    view.nenhumLocal()
+                    continue
+                view.hide()
+                CasosLocalController(values['local'])
+
 
 
 

@@ -12,7 +12,11 @@ class MenuInicialView:
         self.window.layout(layout)
 
     def read(self):
+        self.window.un_hide()
         return self.window.read()
 
     def close(self):
         self.window.close()
+
+    def hide(self):
+        self.window.hide()

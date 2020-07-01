@@ -10,10 +10,10 @@ class MenuInicialController:
             event, _ = view.read()
             print(event)
             if event == 'ver':
-                view.close()
+                view.hide()
                 CasosGeralController()
             elif event == 'cadastrar':
-                view.close()
+                view.hide()
                 CadastrarUsuarioController()
             elif event == None:
                 break

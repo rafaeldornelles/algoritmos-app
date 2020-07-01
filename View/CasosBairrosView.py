@@ -5,19 +5,20 @@ from Services.CasoServices import CasoServices
 
 
 class CasosBairrosView:
-    def __init__(self, window, bairros=None):
+    def __init__(self, bairros):
         print('a')
-        self.window = window
-        self.bairros = bairros
-        print(self.bairros)
+        self.window = sg.Window('Covidometro Poa')
 
-    def render(self):
         layout = [
-            [sg.Table([[bairro.descricao, bairro.casos] for bairro in self.bairros], headings=["Bairro", "Casos"], select_mode=sg.TABLE_SELECT_MODE_NONE)],
+            [sg.Table([[bairro.descricao, bairro.casos] for bairro in bairros], headings=["Bairro", "Casos"], select_mode=sg.TABLE_SELECT_MODE_NONE)],
             [sg.Button('Voltar')]
         ]
         self.window.layout(layout)
-        self.window.read()
+
+    def read(self):
+        return self.window.read()
+
+    def close(self):
+        self.window.close()
 
 
-CasosBairrosView(sg.Window(''), BairroServices().listar()).render()
